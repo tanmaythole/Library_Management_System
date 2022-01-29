@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Add Book
+{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <h1>Add Book</h1>
+
+        <form action="" method="POST">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="title" name="title" required value="{{params.title}}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="authors" class="form-label">Authors</label>
+                    <input type="text" class="form-control" id="authors" name="authors" required value="{{params.authors}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="average_rating" class="form-label">Average Rating</label>
+                  <input type="text" class="form-control" id="average_rating" name="average_rating" value="{{params.average_rating}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="isbn" class="form-label">ISBN</label>
+                    <input type="number" class="form-control" id="isbn" name="isbn" required value="{{params.isbn}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="isbn13" class="form-label">ISBN13</label>
+                  <input type="number" class="form-control" id="isbn13" name="isbn13" required value="{{params.isbn13}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="language" class="form-label">Language</label>
+                    <input type="text" class="form-control" id="language" name="language" required value="{{params.language}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="num_of_pages" class="form-label">No. of Pages</label>
+                    <input type="number" class="form-control" id="num_of_pages" name="num_of_pages" required value="{{params.num_of_pages}}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="ratings_count" class="form-label">Ratings Count</label>
+                    <input type="number" class="form-control" id="ratings_count" name="ratings_count" value="{{params.ratings_count}}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="publication_date" class="form-label">Publication Date</label>
+                    <input type="date" class="form-control" id="publication_date" name="publication_date" required value="{{params.publication_date}}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="publisher" class="form-label">Publisher</label>
+                    <input type="text" class="form-control" id="publisher" name="publisher" required value="{{params.publisher}}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" required value="{{params.quantity}}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Add Book</button>
+          </form>
+    </div>
+{% endblock %}

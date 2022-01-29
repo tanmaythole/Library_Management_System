@@ -1,3 +1,4 @@
+from flask import request
 from . import app, render_template
 
 @app.route('/')
@@ -6,15 +7,29 @@ def dashboard():
 
 @app.route('/books')
 def books():
-    pass
+    return render_template("books.html")
 
 @app.route('/books/add')
-def addBook():
-    pass
-
 @app.route('/books/edit/<int:id>')
-def editBook():
-    pass
+def addBook(id=0):
+    if request.method=='POST':
+        if id==0:
+            # add book
+            pass
+        else:
+            # edit book of id
+            pass
+    
+    if id==0:
+        params = {}
+    else:
+        params = {"title":"The Wings of Fire"}
+    
+    return render_template("addbook.html", params=params)
+
+# @app.route('/books/edit/<int:id>')
+# def editBook():
+#     pass
 
 @app.route('/books/delete/<int:id>')
 def deleteBook():
@@ -22,15 +37,29 @@ def deleteBook():
 
 @app.route('/members')
 def members():
-    pass
+    return render_template("members.html")
 
 @app.route('/members/add')
-def addMember():
-    pass
-
 @app.route('/members/edit/<int:id>')
-def editMember():
-    pass
+def addMember(id=0):
+    if request.method=='POST':
+        if id==0:
+            # add member
+            pass
+        else:
+            # edit member of id
+            pass
+    
+    if id==0:
+        params = {}
+    else:
+        params = {"name":"name"}
+    
+    return render_template('addmember.html', params=params)
+
+# @app.route('/members/edit/<int:id>')
+# def editMember():
+#     pass
 
 @app.route('/members/delete/<int:id>')
 def deleteMember():

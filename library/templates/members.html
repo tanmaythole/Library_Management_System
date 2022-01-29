@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Members
+{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Members</h1>
+        <div>
+            <a href="/members/add" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Member</a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Member Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Outstanding Debt</th>
+            <th scope="col">Amount Spent</th>
+            <th scope="col">Registered On</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Tanmay</td>
+            <td>tanmay@library.com</td>
+            <td>0.0</td>
+            <td>100</td>
+            <td>2021-06-14 00:00:00</td>
+            <td>
+                <a href="/members/edit/1" class="btn btn-sm btn-primary mx-1">
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="/members/delete/1" class="btn btn-sm btn-danger mx-1">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary" disabled="true"><i class="fas fa-backward"></i>&nbsp;&nbsp;Previous</button>
+        <button class="btn btn-primary">Next&nbsp;&nbsp;<i class="fas fa-forward"></i></button>
+    </div>
+</div>
+{% endblock %}
