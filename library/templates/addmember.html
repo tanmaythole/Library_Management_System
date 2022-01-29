@@ -5,7 +5,7 @@
 
 {% block body %}
 <div class="container py-4">
-    <h1>Add Member</h1>
+    <h1>{% if params.isNew %} Add {% else %} Update {% endif %} Member</h1>
 
     <form action="" method="POST">
         <div class="mb-3">
@@ -17,7 +17,7 @@
             <input type="email" class="form-control" id="email" name="email" required value="{{params.email}}">
           </div>
 
-        <button type="submit" class="btn btn-success">Add Member</button>
+        <button type="submit" class="btn btn-success">{% if params.isNew %} Add {% else %} Update {% endif %} Member</button>
       </form>
 </div>
 {% endblock %}

@@ -5,7 +5,7 @@
 
 {% block body %}
     <div class="container py-4">
-        <h1>Add Book</h1>
+        <h1>{% if params.isNew %} Add {% else %} Update {% endif %} Book</h1>
 
         <form action="" method="POST">
             <div class="row">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="num_of_pages" class="form-label">No. of Pages</label>
-                    <input type="number" class="form-control" id="num_of_pages" name="num_of_pages" required value="{{params.num_of_pages}}">
+                    <input type="number" class="form-control" id="num_of_pages" name="num_of_pages" required value="{{params.num_pages}}">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="ratings_count" class="form-label">Ratings Count</label>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="publication_date" class="form-label">Publication Date</label>
-                    <input type="date" class="form-control" id="publication_date" name="publication_date" required value="{{params.publication_date}}">
+                    <input type="date" class="form-control" id="publication_date" name="publication_date" required value="{{params.pub_date}}">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="publisher" class="form-label">Publisher</label>
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Add Book</button>
+            <button type="submit" class="btn btn-success">{% if params.isNew %} Add {% else %} Update {% endif %} Book</button>
           </form>
     </div>
 {% endblock %}

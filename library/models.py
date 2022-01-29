@@ -19,7 +19,7 @@ class Books(db.Model):
     isbn13 = db.Column(db.String(13), nullable=False, unique=True)
     language = db.Column(db.String(3), nullable=False)
     num_pages = db.Column(db.Integer, nullable=False)
-    ratings_count = db.Column(db.Float, nullable=True)
+    ratings_count = db.Column(db.Integer, nullable=True)
     pub_date = db.Column(db.Date, nullable=False)
     publisher = db.Column(db.String(255), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
