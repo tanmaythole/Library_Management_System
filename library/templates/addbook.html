@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}
-    Add Book
+{% if params.isNew %} Add {% else %} Update {% endif %} Book
 {% endblock %}
 
 {% block body %}
