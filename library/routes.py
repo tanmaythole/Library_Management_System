@@ -1,4 +1,5 @@
 from flask import request
+from .models import Books, Members
 from . import app, render_template
 
 @app.route('/')
@@ -7,7 +8,8 @@ def dashboard():
 
 @app.route('/books')
 def books():
-    return render_template("books.html")
+    books = Books.query.all()
+    return render_template("books.html", books=books)
 
 @app.route('/books/add')
 @app.route('/books/edit/<int:id>')
@@ -27,9 +29,6 @@ def addBook(id=0):
     
     return render_template("addbook.html", params=params)
 
-# @app.route('/books/edit/<int:id>')
-# def editBook():
-#     pass
 
 @app.route('/books/delete/<int:id>')
 def deleteBook():
@@ -37,7 +36,8 @@ def deleteBook():
 
 @app.route('/members')
 def members():
-    return render_template("members.html")
+    members = Members.query.all()
+    return render_template("members.html", members=members)
 
 @app.route('/members/add')
 @app.route('/members/edit/<int:id>')
@@ -57,9 +57,6 @@ def addMember(id=0):
     
     return render_template('addmember.html', params=params)
 
-# @app.route('/members/edit/<int:id>')
-# def editMember():
-#     pass
 
 @app.route('/members/delete/<int:id>')
 def deleteMember():

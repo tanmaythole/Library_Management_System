@@ -26,22 +26,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">39763</th>
-                <td>The Mystical Poems of Rumi 1: First Selection  Poems 1-200</td>
-                <td>Rumi/A.J. Arberry</td>
-                <td>50</td>
-                <td>33</td>
-                <td>17</td>
-                <td>
-                    <a href="/books/edit/1" class="btn btn-sm btn-primary mx-1">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a href="/books/delete/1" class="btn btn-sm btn-danger mx-1">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                </td>
-              </tr>
+                {% for book in books %}    
+                    <tr>
+                        <th scope="row">{{ book.id }}</th>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.authors }}</td>
+                        <td>{{ book.quantity }}</td>
+                        <td>{{ book.available_books }}</td>
+                        <td>{{ book.issued_books }}</td>
+                        <td>
+                            <a href="/books/edit/{{ book.id }}" class="btn btn-sm btn-primary mx-1">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a href="/books/delete/{{ book.id }}" class="btn btn-sm btn-danger mx-1">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
 
