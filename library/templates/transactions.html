@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Transactions History
+{% endblock %}
+{% block body %}
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Transactions History</h1>
+            <a href="/issue-book" class="btn btn-success">Issue Book</a>
+        </div>
+
+
+        <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Book Id</th>
+                <th scope="col">Member Id</th>
+                <th scope="col">Per Day Fees</th>
+                <th scope="col">Issued On</th>
+                <th scope="col">Returned On</th>
+                <th scope="col">Total Charge</th>
+                <th scope="col">Amount Paid</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}    
+                    <tr>
+                        <th scope="row">{{ 1 }}</th>
+                        <td>{{ transaction.book_id }}</td>
+                        <td>{{ transaction.member_id }}</td>
+                        <td>{{ transaction.per_day_fee }}</td>
+                        <td>{{ transaction.issued_on }}</td>
+                        <td>{{ transaction.returned_on }}</td>
+                        <td>{{ transaction.total_charge }}</td>
+                        <td>{{ transaction.amount_paid }}</td>
+                        <td>
+                            {% if transaction.isClosed==True %}
+                                CLOSED
+                            {% else %}
+                                <a href="/books/return/{{ transactions.id }}" class="btn btn-sm btn-danger mx-1">
+                                    Return
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-primary" disabled="true"><i class="fas fa-backward"></i>&nbsp;&nbsp;Previous</button>
+            <button class="btn btn-primary">Next&nbsp;&nbsp;<i class="fas fa-forward"></i></button>
+        </div>
+    </div>
+{% endblock %}

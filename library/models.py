@@ -26,3 +26,14 @@ class Books(db.Model):
     available_books = db.Column(db.Integer, nullable=False)
     issued_books = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+class Transactions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'), nullable=False)
+    per_day_fee = db.Column(db.Integer, nullable=False)
+    issued_on = db.Column(db.DateTime, nullable=False)
+    returned_on = db.Column(db.DateTime, nullable=True)
+    total_charge = db.Column(db.Integer, nullable=True)
+    amount_paid = db.Column(db.Integer, nullable=True)
+    isClosed = db.Column(db.Boolean, nullable=False, default=False)

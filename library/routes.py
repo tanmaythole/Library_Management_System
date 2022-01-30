@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import redirect, request
-from .models import Books, Members
+from .models import Books, Members, Transactions
 from . import app, render_template, db
 import requests
 
@@ -174,7 +174,8 @@ def deleteMember(id):
 
 @app.route('/transactions')
 def transactions():
-    pass
+    transactions = Transactions.query.all()
+    return render_template("transactions.html", transactions=transactions)
 
 @app.route('/most-popular-books')
 def popularBooks():
