@@ -247,10 +247,12 @@ def returnBook(id):
 
     return render_template("returnBook.html", book=book, transaction=transaction, member=member, params={"total_no_of_days":total_no_of_days, "total_charge":total_charge})
 
-@app.route('/most-popular-books')
+@app.route('/popular-books')
 def popularBooks():
-    pass
+    books = Books.query.order_by(Books.average_rating.desc()).limit(10).all()
+    return render_template("mostPopularBooks.html", books=books)
 
 @app.route('/highest-paying-customers')
 def highestPayingCustomers():
-    pass
+    members = Members.query.order_by(Members.amount_spent.desc()).limit(10).all()
+    return render_template("highestPayingCustomers.html", members=members)
