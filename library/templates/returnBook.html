@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Return Book
+{% endblock %}
+{% block body %}
+    <div class="container col-md-5 py-5">
+        <h1>Return Book</h1>
+        
+        <div class="py-4">
+            <p><strong>Transaction Id: </strong> {{ transaction.id }}</p>
+            <p><strong>Book Title: </strong> {{ book.title }}</p>
+            <p><strong>ISBN: </strong> {{ book.isbn }}</p>
+            <p><strong>Member: </strong> {{ member.name }} - {{ member.id }}</p>
+            <p><strong>Per Day Fee: </strong> {{ transaction.per_day_fee }}</p>
+            <p><strong>Issued On: </strong> {{ transaction.issued_on }}</p>
+            <p><strong>Total No. of Days: </strong> {{ params.total_no_of_days }}</p>
+            <p><strong>Total Charge: </strong> {{ params.total_charge }}</p>
+            
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="amount_paid" class="form-label">Amount Paid</label>
+                    <input type="text" class="form-control" name="amount_paid" id="amount_paid" required>
+                </div>
+
+                <button type="submit" class="btn btn-success">Return Book</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

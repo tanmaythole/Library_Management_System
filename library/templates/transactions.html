@@ -39,7 +39,7 @@
                             {% if transaction.isClosed==True %}
                                 CLOSED
                             {% else %}
-                                <a href="/books/return/{{ transactions.id }}" class="btn btn-sm btn-danger mx-1">
+                                <a href="/books/return/{{ transaction.id }}" class="btn btn-sm btn-danger mx-1">
                                     Return
                                 </a>
                             {% endif %}

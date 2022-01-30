@@ -205,6 +205,48 @@ def issueBook():
         return redirect('/transactions')
     return render_template('issueBook.html')
 
+@app.route('/books/return/<int:id>', methods=['GET', 'POST'])
+def returnBook(id):
+    transaction = Transactions.query.filter_by(id=id).first()
+
+    if transaction is None:
+        return redirect('/transactions')
+
+    book = Books.query.filter_by(id=transaction.book_id).first()
+    member = Members.query.filter_by(id=transaction.member_id).first()
+
+    total_no_of_days = (datetime.now() - transaction.issued_on).days
+    total_no_of_days = total_no_of_days+1 if total_no_of_days==0 else total_no_of_days
+
+    total_charge = total_no_of_days * transaction.per_day_fee
+
+    if request.method=='POST':
+        form = request.form
+
+        debt = total_charge - int(form['amount_paid'])
+
+        if member.outstanding_debt + debt < 500:
+            transaction.returned_on = datetime.now()
+            transaction.total_charge = total_charge
+            transaction.amount_paid = int(form['amount_paid'])
+            transaction.isClosed = True
+            db.session.commit()
+
+            member.outstanding_debt += debt
+            member.amount_spent = int(form['amount_paid'])
+            db.session.commit()
+
+            book.available_books += 1
+            book.issued_books -= 1
+            db.session.commit()
+
+            return redirect('/transactions')
+        else:
+            print('OutStanding Debt is more than 500')
+
+
+    return render_template("returnBook.html", book=book, transaction=transaction, member=member, params={"total_no_of_days":total_no_of_days, "total_charge":total_charge})
+
 @app.route('/most-popular-books')
 def popularBooks():
     pass
