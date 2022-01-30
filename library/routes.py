@@ -177,6 +177,34 @@ def transactions():
     transactions = Transactions.query.all()
     return render_template("transactions.html", transactions=transactions)
 
+@app.route('/issue-book', methods=['GET', 'POST'])
+def issueBook():
+    if request.method == 'POST':
+        form = request.form
+        
+        isBookFound = Books.query.filter_by(id=form['book']).first()
+        
+        if isBookFound is not None:
+            if isBookFound.available_books>0:
+                transaction = Transactions(
+                        book_id=form['book'],
+                        member_id=form['member'],
+                        per_day_fee=form['per_day_fee']
+                    )
+                db.session.add(transaction)
+                db.session.commit()
+
+                isBookFound.available_books=isBookFound.available_books-1, 
+                isBookFound.issued_books=isBookFound.issued_books+1
+
+                db.session.commit()
+            else:
+                print("Books Not Available")
+        else:
+            print(f"Book not found to {form['book']} id.")
+        return redirect('/transactions')
+    return render_template('issueBook.html')
+
 @app.route('/most-popular-books')
 def popularBooks():
     pass

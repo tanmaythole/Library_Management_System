@@ -32,7 +32,7 @@ class Transactions(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     member_id = db.Column(db.Integer, db.ForeignKey('members.id'), nullable=False)
     per_day_fee = db.Column(db.Integer, nullable=False)
-    issued_on = db.Column(db.DateTime, nullable=False)
+    issued_on = db.Column(db.DateTime, nullable=False, default=datetime.now())
     returned_on = db.Column(db.DateTime, nullable=True)
     total_charge = db.Column(db.Integer, nullable=True)
     amount_paid = db.Column(db.Integer, nullable=True)

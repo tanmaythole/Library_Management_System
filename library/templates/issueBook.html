@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Issue Book
+{% endblock %}
+{% block body %}
+    <div class="container col-md-5 py-5">
+        <h1>Issue a Book</h1>
+
+        <form action="" method="post">
+            <div class="mb-3">
+                <label for="book" class="form-label">Book Id</label>
+                <input type="text" class="form-control" id="book" name='book' required>
+            </div>
+            <div class="mb-3">
+                <label for="member" class="form-label">Member Id</label>
+                <input type="text" class="form-control" id="member" name='member' required>
+            </div>
+            <div class="mb-3">
+                <label for="per_day_fee" class="form-label">Per Day Fee</label>
+                <input type="number" class="form-control" id="per_day_fee" name='per_day_fee' required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Issue Book</button>
+        </form>
+    </div>
+{% endblock %}
