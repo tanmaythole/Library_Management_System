@@ -32,23 +32,16 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/books">Books</a>
+                        <a class="nav-link" href="{{ url_for('books') }}">Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/members">Members</a>
+                        <a class="nav-link" href="{{ url_for('members') }}">Members</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/transactions">Transactions</a>
+                        <a class="nav-link" href="{{ url_for('transactions') }}">Transactions</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Reports
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/popular-books">Most Popular Books</a></li>
-                            <li><a class="dropdown-item" href="/highest-paying-customers">Highest Paying Customers</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('reports') }}">Reports</a>
                     </li>
                 </ul>
                 <form class="d-flex" action="/search">
@@ -73,8 +66,6 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" integrity="sha512-F5QTlBqZlvuBEs9LQPqc1iZv2UMxcVXezbHzomzS6Df4MZMClge/8+gXrKw2fl5ysdk4rWjR0vKS7NNkfymaBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 </body>
 
 </html>

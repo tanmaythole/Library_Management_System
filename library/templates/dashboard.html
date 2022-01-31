@@ -1,7 +1,64 @@
 {% extends 'layout.html' %}
 {% block title %}
-    Admin
+Librarian Dashboard
 {% endblock %}
 {% block body %}
-    
+<div class="container py-5">
+
+    <div class="row">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('books') }}">
+            <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #99d19a;">
+                <i class="fas fa-book-open" style="font-size: 100px; opacity: 0.2;"></i>
+                <div>
+                    <h4>Books</h4>
+                    <h1>15</h1>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                View Books
+            </div>
+        </a>
+        
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('members') }}">
+            <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #a6d2ff;">
+                <i class="fas fa-users" style="font-size: 100px; opacity: 0.2;"></i>
+                <div>
+                    <h4>Members</h4>
+                    <h1>5</h1>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                View Members
+            </div>
+        </a>
+
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('transactions') }}">
+            <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #ff8686;">
+                <i class="fas fa-file-alt" style="font-size: 100px; opacity: 0.2;"></i>
+                <div>
+                    <h4>Transactions</h4>
+                    <h1></h1>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                View Transactions
+            </div>
+        </a>
+
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('reports') }}">
+            <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #fffb86;">
+                <i class="fas fa-file-word" style="font-size: 100px; opacity: 0.2;"></i>
+                <div>
+                    <h4>Reports</h4>
+                    <h1></h1>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                View Reports
+            </div>
+        </a>
+        
+    </div>
+
+</div>
 {% endblock %}
