@@ -100,7 +100,9 @@ def addBook(id=0):
         else:
             # edit book of id
             r = request.form
-            Books.query.filter_by(id=id).update(dict(
+            b = Books.query.filter_by(id=id)
+            
+            b.update(dict(
                     title=r['title'],
                     authors = r['authors'],
                     average_rating = r['average_rating'],
@@ -111,14 +113,16 @@ def addBook(id=0):
                     ratings_count = r['ratings_count'],
                     pub_date = r['publication_date'],
                     publisher = r['publisher'],
-                    quantity = r['quantity']))
+                    quantity = r['quantity'],
+                    available_books = int(r['quantity']) - b[0].issued_books
+                ))
             db.session.commit()
             return redirect('/books')
     
     if id==0:
         params = {"isNew":True}
     else:
-        params = Books.query.all()[0]
+        params = Books.query.filter_by(id=id).first()
     
     return render_template("addbook.html", params=params)
 
@@ -233,7 +237,7 @@ def returnBook(id):
             db.session.commit()
 
             member.outstanding_debt += debt
-            member.amount_spent = int(form['amount_paid'])
+            member.amount_spent += int(form['amount_paid'])
             db.session.commit()
 
             book.available_books += 1

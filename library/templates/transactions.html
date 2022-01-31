@@ -27,7 +27,7 @@
             <tbody>
                 {% for transaction in transactions %}    
                     <tr>
-                        <th scope="row">{{ 1 }}</th>
+                        <th scope="row">{{ loop.index }}</th>
                         <td>{{ transaction.book_id }}</td>
                         <td>{{ transaction.member_id }}</td>
                         <td>{{ transaction.per_day_fee }}</td>

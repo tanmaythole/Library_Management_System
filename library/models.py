@@ -17,7 +17,7 @@ class Books(db.Model):
     average_rating = db.Column(db.Float, nullable=True)
     isbn = db.Column(db.String(10), nullable=False, unique=True)
     isbn13 = db.Column(db.String(13), nullable=False, unique=True)
-    language = db.Column(db.String(3), nullable=False)
+    language = db.Column(db.String(5), nullable=False)
     num_pages = db.Column(db.Integer, nullable=False)
     ratings_count = db.Column(db.Integer, nullable=True)
     pub_date = db.Column(db.Date, nullable=False)
