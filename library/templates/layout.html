@@ -51,9 +51,16 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" action="/search">
+                    <div class="input-group">
+                        <select class="input-group-text" name="search_by" id="inputGroupSelect01">
+                            <option value="title">Title</option>
+                            <option value="authors">Authors</option>
+                            <option value="isbn">ISBN</option>
+                        </select>
+                        <input type="text" class="form-control" name="q" id="q" placeholder="Search Book..." required>
+                      </div>
+                    <button class="btn btn-outline-success mx-1" type="submit">Search</button>
                 </form>
             </div>
         </div>

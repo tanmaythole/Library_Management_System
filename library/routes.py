@@ -260,3 +260,19 @@ def popularBooks():
 def highestPayingCustomers():
     members = Members.query.order_by(Members.amount_spent.desc()).limit(10).all()
     return render_template("highestPayingCustomers.html", members=members)
+
+
+@app.route('/search')
+def search():
+    search_by = request.args['search_by']
+    q = request.args['q']
+    if search_by=='title':
+        results = Books.query.filter(Books.title.like("%"+q+"%")).all()
+    elif search_by=='authors':
+        results = Books.query.filter(Books.authors.like("%"+q+"%")).all()
+    elif search_by=='isbn':
+        results = Books.query.filter_by(isbn=q).all()
+    else:
+        return redirect('/')
+    return render_template('searchResults.html', results=results)
+    
