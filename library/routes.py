@@ -3,6 +3,7 @@ from flask import flash, get_flashed_messages, redirect, request
 from .models import Books, Members, Transactions
 from . import app, render_template, db
 import requests
+import math
 
 @app.route('/')
 def dashboard():
@@ -12,8 +13,33 @@ def dashboard():
 @app.route('/books')
 def books():
     get_flashed_messages()
+    rows_per_page = 15
     books = Books.query.all()
-    return render_template("books.html", books=books)
+
+    length = len(books)
+    last = math.ceil(length/rows_per_page)
+
+    page = request.args.get('page')
+    page = 1 if not str(page).isnumeric() else int(page)
+
+    books = books[(page-1)*rows_per_page : page*rows_per_page]
+    
+    if page > 1:
+        prev = '?page='+str(page-1)
+    else:
+        prev = '#'
+    if page < last:
+        next = '?page='+str(page+1)
+    else:
+        next = '#'
+
+    pagination_msg = {
+            "total":length, 
+            "start":(page-1)*rows_per_page + 1, 
+            "end": page*rows_per_page if page*rows_per_page < length else length
+        }
+
+    return render_template("books.html", books=books, prev=prev, next=next, pagination_msg=pagination_msg)
 
 @app.route('/books/import', methods=['POST', 'GET'])
 def import_books():
@@ -163,8 +189,35 @@ def deleteBook(id):
 @app.route('/members')
 def members():
     get_flashed_messages()
+    rows_per_page = 15
     members = Members.query.all()
-    return render_template("members.html", members=members)
+
+    length = len(members)
+
+    last = math.ceil(length/rows_per_page)
+
+    page = request.args.get('page')
+    page = 1 if not str(page).isnumeric() else int(page)
+
+    members = members[(page-1)*rows_per_page : page*rows_per_page]
+    
+    if page > 1:
+        prev = '?page='+str(page-1)
+    else:
+        prev = '#'
+    if page < last:
+        next = '?page='+str(page+1)
+    else:
+        next = '#'
+
+    pagination_msg = {
+            "total":length, 
+            "start":(page-1)*rows_per_page + 1, 
+            "end": page*rows_per_page if page*rows_per_page < length else length
+        }
+
+
+    return render_template("members.html", members=members, prev=prev, next=next, pagination_msg=pagination_msg)
 
 @app.route('/members/add', methods=['GET', 'POST'])
 @app.route('/members/edit/<int:id>', methods=['GET', 'POST'])
@@ -219,8 +272,32 @@ def deleteMember(id):
 
 @app.route('/transactions')
 def transactions():
-    transactions = Transactions.query.all()
-    return render_template("transactions.html", transactions=transactions)
+    get_flashed_messages()
+    rows_per_page = 20
+    transactions = Transactions.query.order_by(Transactions.isClosed.asc()).all()
+    length = len(transactions)
+
+    last = math.ceil(length/rows_per_page)
+
+    page = request.args.get('page')
+    page = 1 if not str(page).isnumeric() else int(page)
+
+    transactions = transactions[(page-1)*rows_per_page : page*rows_per_page]
+    if page > 1:
+        prev = '?page='+str(page-1)
+    else:
+        prev = '#'
+    if page < last:
+        next = '?page='+str(page+1)
+    else:
+        next = '#'
+
+    pagination_msg = {
+            "total":length, 
+            "start":(page-1)*rows_per_page + 1, 
+            "end": page*rows_per_page if page*rows_per_page < length else length
+        }
+    return render_template("transactions.html", transactions=transactions, prev=prev, next=next, pagination_msg=pagination_msg)
 
 @app.route('/issue-book', methods=['GET', 'POST'])
 def issueBook():

@@ -48,9 +48,10 @@
         </tbody>
     </table>
 
-    <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-primary" disabled="true"><i class="fas fa-backward"></i>&nbsp;&nbsp;Previous</button>
-        <button class="btn btn-primary">Next&nbsp;&nbsp;<i class="fas fa-forward"></i></button>
+    <div class="d-flex justify-content-between align-items-center pb-5">
+        <a href="{{ prev }}" class="btn btn-primary {% if prev == '#' %}disabled{% endif %}"><i class="fas fa-backward"></i>&nbsp;&nbsp;Previous</a>
+        <div class="text-muted">Showing {{ pagination_msg.start }} to {{ pagination_msg.end }} of {{ pagination_msg.total }} entries</div>
+        <a href="{{ next }}" class="btn btn-primary {% if next == '#' %}disabled{% endif %}">Next&nbsp;&nbsp;<i class="fas fa-forward"></i></a>
     </div>
 </div>
 {% endblock %}
