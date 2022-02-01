@@ -386,8 +386,14 @@ def reports():
 
 @app.route('/search')
 def search():
+    get_flashed_messages()
+    rows_per_page = 10
+
     search_by = request.args['search_by']
     q = request.args['q']
+    page = request.args.get('page')
+    page = 1 if not str(page).isnumeric() else int(page)
+
     if search_by=='title':
         results = Books.query.filter(Books.title.like("%"+q+"%")).all()
     elif search_by=='authors':
@@ -396,5 +402,25 @@ def search():
         results = Books.query.filter_by(isbn=q).all()
     else:
         return redirect('/')
-    return render_template('searchResults.html', results=results)
+
+    length = len(results)
+    last = math.ceil(length/rows_per_page)
+
+    results = results[(page-1)*rows_per_page : page*rows_per_page]
+
+    if page > 1:
+        prev = '?page='+str(page-1)
+    else:
+        prev = '#'
+    if page < last:
+        next = '?page='+str(page+1)
+    else:
+        next = '#'
+
+    pagination_msg = {
+            "total":length, 
+            "start":(page-1)*rows_per_page + 1, 
+            "end": page*rows_per_page if page*rows_per_page < length else length
+        }
+    return render_template('searchResults.html', results=results, prev=prev, next=next, pagination_msg=pagination_msg)
     

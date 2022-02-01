@@ -59,16 +59,18 @@
         </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{% if category=='error' %}danger{% else %}{{category}}{% endif %} alert-dismissible fade show" role="alert">
-                    <strong style="text-transform:capitalize;">{{category}}!</strong> {{message}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <div style="min-height: 58px;" class="mb-1">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{% if category=='error' %}danger{% else %}{{category}}{% endif %} alert-dismissible fade show mb-0" role="alert">
+                        <strong style="text-transform:capitalize;">{{category}}!</strong> {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 
     {% block body %}
 
