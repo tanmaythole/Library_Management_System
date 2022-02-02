@@ -11,8 +11,6 @@ db = SQLAlchemy(app)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-from .auth_routes import auth as auth_blueprint
-app.register_blueprint(auth_blueprint)
 
 from . import routes
 from . import models

@@ -1,19 +1,16 @@
 from datetime import datetime
-from flask import flash, get_flashed_messages, redirect, request
-from .models import Books, Members, Transactions
-from . import app, render_template, db
-import requests
-import math
+from flask import Blueprint, flash, get_flashed_messages, redirect, render_template, request
 from flask_login import login_required
+from library import db
+from library.models import Books, Members, Transactions
+import math
+import requests
 
-@app.route('/')
-@login_required
-def dashboard():
-    get_flashed_messages()
-    params = {"members_count":len(Members.query.all()), "books_count":len(Books.query.all())}
-    return render_template("dashboard.html", params=params)
 
-@app.route('/books')
+books_ = Blueprint('books', __name__)
+
+# Display Books
+@books_.route('/books')
 @login_required
 def books():
     get_flashed_messages()
@@ -45,7 +42,8 @@ def books():
 
     return render_template("books.html", books=books, prev=prev, next=next, pagination_msg=pagination_msg)
 
-@app.route('/books/import', methods=['POST', 'GET'])
+# Import Books
+@books_.route('/books/import', methods=['POST', 'GET'])
 @login_required
 def import_books():
     if request.method=='POST':
@@ -111,16 +109,15 @@ def import_books():
 
     return render_template("importBooks.html")
 
-
-@app.route('/books/add', methods=['POST', 'GET'])
-@app.route('/books/edit/<int:id>', methods=['POST', 'GET'])
+# Add/Edit Books
+@books_.route('/books/add', methods=['POST', 'GET'])
+@books_.route('/books/edit/<int:id>', methods=['POST', 'GET'])
 @login_required
 def addBook(id=0):
     if id==0:
         params = {"isNew":True}
     else:
         params = Books.query.filter_by(id=id).first()
-
 
     if request.method=='POST':
         if id==0:
@@ -179,8 +176,8 @@ def addBook(id=0):
 
     return render_template("addbook.html", params=params)
 
-
-@app.route('/books/delete/<int:id>', methods=['DELETE', 'GET'])
+# Delete Books
+@books_.route('/books/delete/<int:id>', methods=['DELETE', 'GET'])
 @login_required
 def deleteBook(id):
     try:
@@ -193,124 +190,8 @@ def deleteBook(id):
     return redirect('/books')
 
 
-@app.route('/members')
-@login_required
-def members():
-    get_flashed_messages()
-    rows_per_page = 15
-    members = Members.query.all()
-
-    length = len(members)
-
-    last = math.ceil(length/rows_per_page)
-
-    page = request.args.get('page')
-    page = 1 if not str(page).isnumeric() else int(page)
-
-    members = members[(page-1)*rows_per_page : page*rows_per_page]
-    
-    if page > 1:
-        prev = '?page='+str(page-1)
-    else:
-        prev = '#'
-    if page < last:
-        next = '?page='+str(page+1)
-    else:
-        next = '#'
-
-    pagination_msg = {
-            "total":length, 
-            "start":(page-1)*rows_per_page + 1, 
-            "end": page*rows_per_page if page*rows_per_page < length else length
-        }
-
-
-    return render_template("members.html", members=members, prev=prev, next=next, pagination_msg=pagination_msg)
-
-@app.route('/members/add', methods=['GET', 'POST'])
-@app.route('/members/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def addMember(id=0):
-
-    if id==0:
-        params = {"isNew":True}
-    else:
-        params = Members.query.filter_by(id=id)[0]
-    
-    if request.method=='POST':
-        if id==0:
-            # add member
-            try:
-                r = request.form
-                mem = Members(
-                        name = r['name'],
-                        email = r['email']
-                    )
-                db.session.add(mem)
-                db.session.commit()
-                flash(f"Member {mem.name} Added Successfully!!", "success")
-                return redirect('/members')
-            except Exception as e:
-                flash(f'Something went wrong while adding the member - {e}', 'error')
-                return render_template("addmember.html", params={params})
-        else:
-            # edit member of id
-            try:
-                r = request.form
-                Members.query.filter_by(id=id).update(dict(name=r['name'], email=r['email']))
-                db.session.commit()
-                flash(f"Member {id} Updated Successfully!!", "success")
-                return redirect('/members')
-            except Exception as e:
-                flash(f'Something went wrong while updating the member - {e}', 'error')
-                return render_template("addmember.html", params={params})
-                
-    return render_template('addmember.html', params=params)
-
-
-@app.route('/members/delete/<int:id>', methods=['DELETE', 'GET'])
-@login_required
-def deleteMember(id):
-    try:
-        mem = Members.query.filter_by(id=id).first()
-        db.session.delete(mem)
-        db.session.commit()
-        flash(f"Member Deleted Successfully.", "success")
-    except Exception as e:
-        flash(f"Something Went Wrong - {e}", "error")
-    return redirect('/members')
-
-@app.route('/transactions')
-@login_required
-def transactions():
-    get_flashed_messages()
-    rows_per_page = 20
-    transactions = Transactions.query.order_by(Transactions.isClosed.asc()).all()
-    length = len(transactions)
-
-    last = math.ceil(length/rows_per_page)
-
-    page = request.args.get('page')
-    page = 1 if not str(page).isnumeric() else int(page)
-
-    transactions = transactions[(page-1)*rows_per_page : page*rows_per_page]
-    if page > 1:
-        prev = '?page='+str(page-1)
-    else:
-        prev = '#'
-    if page < last:
-        next = '?page='+str(page+1)
-    else:
-        next = '#'
-
-    pagination_msg = {
-            "total":length, 
-            "start":(page-1)*rows_per_page + 1, 
-            "end": page*rows_per_page if page*rows_per_page < length else length
-        }
-    return render_template("transactions.html", transactions=transactions, prev=prev, next=next, pagination_msg=pagination_msg)
-
-@app.route('/issue-book', methods=['GET', 'POST'])
+# Issue Book
+@books_.route('/issue-book', methods=['GET', 'POST'])
 @login_required
 def issueBook():
     if request.method == 'POST':
@@ -341,7 +222,9 @@ def issueBook():
         return redirect('/transactions')
     return render_template('issueBook.html')
 
-@app.route('/books/return/<int:id>', methods=['GET', 'POST'])
+
+# Return Book
+@books_.route('/books/return/<int:id>', methods=['GET', 'POST'])
 @login_required
 def returnBook(id):
     transaction = Transactions.query.filter_by(id=id).first()
@@ -389,16 +272,9 @@ def returnBook(id):
 
     return render_template("returnBook.html", book=book, transaction=transaction, member=member, params={"total_no_of_days":total_no_of_days, "total_charge":total_charge})
 
-@app.route('/reports')
-@login_required
-def reports():
-    books = Books.query.order_by(Books.average_rating.desc()).limit(10).all()
-    members = Members.query.order_by(Members.amount_spent.desc()).limit(10).all()
-    return render_template("reports.html", books=books, members=members)
 
-
-
-@app.route('/search')
+# Search Books
+@books_.route('/search')
 @login_required
 def search():
     get_flashed_messages()

@@ -13,16 +13,16 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('books') }}">Books</a>
+                        <a class="nav-link" href="{{ url_for('books.books') }}">Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('members') }}">Members</a>
+                        <a class="nav-link" href="{{ url_for('members.members') }}">Members</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('transactions') }}">Transactions</a>
+                        <a class="nav-link" href="{{ url_for('main.transactions') }}">Transactions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('reports') }}">Reports</a>
+                        <a class="nav-link" href="{{ url_for('main.reports') }}">Reports</a>
                     </li>
                 {% else %}
                     
@@ -41,9 +41,9 @@
                     </div>
                     <button class="btn btn-success mx-1" type="submit">Search</button>
                 </form>
-                <a href="/logout" class="btn btn-outline-danger">Logout</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger">Logout</a>
             {% else %}
-                <a href="/login" class="btn btn-success">LogIn</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-success">LogIn</a>
             {% endif %}
         </div>
     </div>

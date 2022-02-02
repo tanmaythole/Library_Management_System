@@ -6,7 +6,7 @@ Librarian Dashboard
 <div class="container">
 
     <div class="row">
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('books') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('books.books') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #99d19a;">
                 <i class="fas fa-book-open" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
@@ -19,7 +19,7 @@ Librarian Dashboard
             </div>
         </a>
         
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('members') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('members.members') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #a6d2ff;">
                 <i class="fas fa-users" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
@@ -32,7 +32,7 @@ Librarian Dashboard
             </div>
         </a>
 
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('transactions') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('main.transactions') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #ff8686;">
                 <i class="fas fa-file-alt" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
@@ -45,7 +45,7 @@ Librarian Dashboard
             </div>
         </a>
 
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('reports') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('main.reports') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #fffb86;">
                 <i class="fas fa-file-word" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
@@ -58,7 +58,7 @@ Librarian Dashboard
             </div>
         </a>
 
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('addBook') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('books.addBook') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #cda7ff;">
                 <i class="fas fa-book-medical" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
@@ -71,7 +71,7 @@ Librarian Dashboard
             </div>
         </a>
 
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('addMember') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('members.addMember') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #8cff8f;">
                 <i class="fas fa-user-plus" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
@@ -84,7 +84,7 @@ Librarian Dashboard
             </div>
         </a>
 
-        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('issueBook') }}">
+        <a class="card px-0 m-1" style="width:24%; min-width:230px; text-decoration: none; color: initial;" href="{{ url_for('books.issueBook') }}">
             <div class="card-body d-flex justify-content-around align-items-center py-4" style="background-color: #ffcb8c;">
                 <i class="fas fa-book-reader" style="font-size: 100px; opacity: 0.2;"></i>
                 <div>
