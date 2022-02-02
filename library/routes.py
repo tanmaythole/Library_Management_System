@@ -8,7 +8,8 @@ import math
 @app.route('/')
 def dashboard():
     get_flashed_messages()
-    return render_template("dashboard.html")
+    params = {"members_count":len(Members.query.all()), "books_count":len(Books.query.all())}
+    return render_template("dashboard.html", params=params)
 
 @app.route('/books')
 def books():
