@@ -8,33 +8,43 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('books') }}">Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('members') }}">Members</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('transactions') }}">Transactions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('reports') }}">Reports</a>
-                </li>
+                {% if current_user.is_authenticated %}    
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('books') }}">Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('members') }}">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('transactions') }}">Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('reports') }}">Reports</a>
+                    </li>
+                {% else %}
+                    
+                {% endif %}
             </ul>
-            <form class="d-flex" action="/search">
-                <div class="input-group">
-                    <select class="input-group-text" name="search_by" id="inputGroupSelect01">
-                        <option value="title">Title</option>
-                        <option value="authors">Authors</option>
-                        <option value="isbn">ISBN</option>
-                    </select>
-                    <input type="text" class="form-control" name="q" id="q" placeholder="Search Book..." required>
-                  </div>
-                <button class="btn btn-outline-success mx-1" type="submit">Search</button>
-            </form>
+
+            {% if current_user.is_authenticated %}
+                <form class="d-flex" action="/search">
+                    <div class="input-group">
+                        <select class="input-group-text" name="search_by" id="inputGroupSelect01">
+                            <option value="title">Title</option>
+                            <option value="authors">Authors</option>
+                            <option value="isbn">ISBN</option>
+                        </select>
+                        <input type="text" class="form-control" name="q" id="q" placeholder="Search Book..." required>
+                    </div>
+                    <button class="btn btn-success mx-1" type="submit">Search</button>
+                </form>
+                <a href="/logout" class="btn btn-outline-danger">Logout</a>
+            {% else %}
+                <a href="/login" class="btn btn-success">LogIn</a>
+            {% endif %}
         </div>
     </div>
 </nav>

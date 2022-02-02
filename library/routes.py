@@ -4,14 +4,17 @@ from .models import Books, Members, Transactions
 from . import app, render_template, db
 import requests
 import math
+from flask_login import login_required
 
 @app.route('/')
+@login_required
 def dashboard():
     get_flashed_messages()
     params = {"members_count":len(Members.query.all()), "books_count":len(Books.query.all())}
     return render_template("dashboard.html", params=params)
 
 @app.route('/books')
+@login_required
 def books():
     get_flashed_messages()
     rows_per_page = 15
@@ -43,6 +46,7 @@ def books():
     return render_template("books.html", books=books, prev=prev, next=next, pagination_msg=pagination_msg)
 
 @app.route('/books/import', methods=['POST', 'GET'])
+@login_required
 def import_books():
     if request.method=='POST':
 
@@ -110,6 +114,7 @@ def import_books():
 
 @app.route('/books/add', methods=['POST', 'GET'])
 @app.route('/books/edit/<int:id>', methods=['POST', 'GET'])
+@login_required
 def addBook(id=0):
     if id==0:
         params = {"isNew":True}
@@ -176,6 +181,7 @@ def addBook(id=0):
 
 
 @app.route('/books/delete/<int:id>', methods=['DELETE', 'GET'])
+@login_required
 def deleteBook(id):
     try:
         book = Books.query.filter_by(id=id).first()
@@ -188,6 +194,7 @@ def deleteBook(id):
 
 
 @app.route('/members')
+@login_required
 def members():
     get_flashed_messages()
     rows_per_page = 15
@@ -222,6 +229,7 @@ def members():
 
 @app.route('/members/add', methods=['GET', 'POST'])
 @app.route('/members/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
 def addMember(id=0):
 
     if id==0:
@@ -261,6 +269,7 @@ def addMember(id=0):
 
 
 @app.route('/members/delete/<int:id>', methods=['DELETE', 'GET'])
+@login_required
 def deleteMember(id):
     try:
         mem = Members.query.filter_by(id=id).first()
@@ -272,6 +281,7 @@ def deleteMember(id):
     return redirect('/members')
 
 @app.route('/transactions')
+@login_required
 def transactions():
     get_flashed_messages()
     rows_per_page = 20
@@ -301,6 +311,7 @@ def transactions():
     return render_template("transactions.html", transactions=transactions, prev=prev, next=next, pagination_msg=pagination_msg)
 
 @app.route('/issue-book', methods=['GET', 'POST'])
+@login_required
 def issueBook():
     if request.method == 'POST':
         form = request.form
@@ -331,6 +342,7 @@ def issueBook():
     return render_template('issueBook.html')
 
 @app.route('/books/return/<int:id>', methods=['GET', 'POST'])
+@login_required
 def returnBook(id):
     transaction = Transactions.query.filter_by(id=id).first()
 
@@ -378,6 +390,7 @@ def returnBook(id):
     return render_template("returnBook.html", book=book, transaction=transaction, member=member, params={"total_no_of_days":total_no_of_days, "total_charge":total_charge})
 
 @app.route('/reports')
+@login_required
 def reports():
     books = Books.query.order_by(Books.average_rating.desc()).limit(10).all()
     members = Members.query.order_by(Members.amount_spent.desc()).limit(10).all()
@@ -386,6 +399,7 @@ def reports():
 
 
 @app.route('/search')
+@login_required
 def search():
     get_flashed_messages()
     rows_per_page = 10

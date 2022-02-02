@@ -1,5 +1,6 @@
 from datetime import datetime
 from . import db
+from flask_login import UserMixin
 
 class Members(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,3 +38,9 @@ class Transactions(db.Model):
     total_charge = db.Column(db.Integer, nullable=True)
     amount_paid = db.Column(db.Integer, nullable=True)
     isClosed = db.Column(db.Boolean, nullable=False, default=False)
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=True)
+    email = db.Column(db.String(255), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False)
