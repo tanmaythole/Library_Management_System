@@ -13,12 +13,11 @@ def login():
 
     if request.method=='POST':
         r = request.form
-        remember = True if request.form.get('remember') else False
         
         user = User.query.filter_by(email=r['email']).first()
         
         if user and check_password_hash(user.password, r['password']):
-            login_user(user, remember=remember)
+            login_user(user)
 
             next = request.args.get('next')
             if not next:

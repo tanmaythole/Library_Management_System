@@ -1,15 +1,16 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from config import *
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://tanmay:Pass1234@localhost/libraryms'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST_NAME}/{DB_NAME}'
 
 db = SQLAlchemy(app)
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = SECRET_KEY
 
 
 from . import routes
